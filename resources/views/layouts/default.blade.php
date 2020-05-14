@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="Start your development with a Dashboard for Bootstrap 4.">
   <meta name="author" content="Creative Tim">
-  <title>{{ config('app.name', 'Laravel') }}</title> 
+  <title>{{ config('app.name', 'Laravel') }}</title>
   <!-- Favicon -->
   <link rel="icon" href="{{ url('template_admin/assets/img/brand/favicon.png')}}" type="image/png">
   <!-- Fonts -->
@@ -112,7 +112,7 @@
               </div>
             </li>
           </ul>
-          
+
           <ul class="navbar-nav align-items-center  ml-auto ml-md-0 ">
                         <!-- Authentication Links -->
                         @guest
@@ -162,7 +162,7 @@
                 </div> -->
               </div>
             </div>
-            
+
           </div>
         </div>
       </div>
@@ -200,7 +200,6 @@
 
   <!-- =============================== -->
 
-  <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
 <script src="{{ asset('plugins/jQueryUI/jquery-ui.min.js') }}"></script>
 <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('js/popper.min.js') }}"></script>
@@ -208,6 +207,3 @@
   @stack('scriptku')
 </body>
 </html>
-
-
-
