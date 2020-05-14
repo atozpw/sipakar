@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Penyakit;
-use App\gejalaPenyakit; 
+use App\gejalaPenyakit;
 use App\daerahGejala;
 use App\Tanaman;
 use App\Gejala;
@@ -27,7 +27,7 @@ class penyakitController extends Controller
         $item = Penyakit::with('tanaman')->latest()->get();
         return DataTables::of($item)
                 ->addColumn('action', function($data){
-                    return view('penyakit.ajax.action_index', compact('data'));
+                    return view('penyakit.ajax.action', compact('data'));
                 })->make(true);
     }
 
@@ -70,6 +70,12 @@ class penyakitController extends Controller
         return view('penyakit.show', compact('item', 'daerahGejala'));
     }
 
+    public function detail($id)
+    {
+        $tanaman = Penyakit::find($id);
+        return Response::json($tanaman, 200);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -93,9 +99,9 @@ class penyakitController extends Controller
         $item = Penyakit::find($id);
         $item->update($request->all());
         if ($item) {
-            return redirect()->route('penyakit.show', $id);
+            return Response::json('success', 200);
         } else {
-            return redirect()->route('penyakit.show', $id);
+            return Response::json('error', 400);
         }
     }
 
@@ -161,13 +167,13 @@ class penyakitController extends Controller
                 foreach ($data as $item) {
                     $dat[] = $item->nama_gejala;
                 }
-                return Response::json($dat, 200);                
+                return Response::json($dat, 200);
             } else {
                 return Response::json('Data tidak tersedia', 500);
             }
         } else {
             return Response::json('Something wrong in here!', 500);
-        }        
+        }
     }
 
     public function gejalaList($id){
