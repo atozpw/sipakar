@@ -20,25 +20,31 @@ Route::get('daftarpenyakit/{id}','diagnosaController@daftarPenyakit')->name('daf
 
 Route::group(['prefix' => 'admin'], function() {
     Route::middleware(['auth'])->group(function() {
-    	Route::resource('tanaman','tanamanController');
-		Route::get('tanaman/list','tanamanController@list')->name('tanaman.list');
+      Route::group(['prefix' => 'tanaman'], function() {
+          Route::get('list','tanamanController@list')->name('tanaman.list');
+      });
+      Route::resource('tanaman','tanamanController');
+
     	Route::group(['prefix' => 'penyakit'], function() {
     	    Route::get('list','penyakitController@list')->name('penyakit.list');
+            Route::get('{id}/detail','penyakitController@detail')->name('penyakit.detail');
             Route::post('{id}/gejala','penyakitController@setGejala')->name('penyakit.setgejala');
             Route::get('{id}/gejalaSuggest', 'penyakitController@gejalaSuggest')->name('penyakit.gejalaSuggest');
             Route::get('{id}/gejalaList','penyakitController@gejalaList')->name('penyakit.gejalalist');
             Route::delete('{id}/gejala','penyakitController@destroyGejala')->name('penyakit.delgejala');
-    	});         
-    	Route::resource('penyakit','penyakitController');      
-    	Route::group(['prefix' => 'daerah_gejala'], function() {
+    	});
+      Route::resource('penyakit','penyakitController');
+
+      Route::group(['prefix' => 'daerah_gejala'], function() {
     	    Route::get('list','daerahGejalaController@list')->name('daerah_gejala.list');
     	});
-    	Route::resource('daerah_gejala','daerahGejalaController');
-        Route::group(['prefix' => 'gejala'], function() {
-            Route::get('list','gejalaController@listGejala')->name('gejala.list');
-        });
-    	Route::resource('gejala','gejalaController');
-    });
+      Route::resource('daerah_gejala','daerahGejalaController');
+
+      Route::group(['prefix' => 'gejala'], function() {
+          Route::get('list','gejalaController@listGejala')->name('gejala.list');
+      });
+      Route::resource('gejala','gejalaController');
+  });
 });
 Auth::routes();
 

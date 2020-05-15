@@ -14,11 +14,19 @@ class tanamanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $tanaman = Tanaman::latest()->get();
-        return view('tanaman.index', compact('tanaman'));
-    }
+     public function index()
+     {
+         $item = Tanaman::latest()->get();
+         return view('tanaman.index', compact('item'));
+     }
+
+     public function list(){
+     	$item = Tanaman::latest()->get();
+     	return DataTables::of($item)
+     			->addColumn('action', function($data){
+     				return view('tanaman.ajax.action', compact('data'));
+     			})->make(true);
+     }
 
     /**
      * Show the form for creating a new resource.
@@ -78,12 +86,12 @@ class tanamanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $tanaman = Tanaman::find($id);
-        $tanaman->update($request->all());
-        if ($tanaman) {
-            return redirect()->route('tanaman.index');
+        $item = Tanaman::find($id);
+        $item->update($request->all());
+        if ($item) {
+            return Response::json('success', 200);
         } else {
-            echo 'Error';
+            return Response::json('error', 400);
         }
     }
 
@@ -101,13 +109,5 @@ class tanamanController extends Controller
         } else {
             return Response::json('error', 400);
         }
-    }
-
-    public function list(){
-        $item = Tanaman::latest()->get();
-        return DataTables::of($item)
-                ->addColumn('action', function($data){
-                    return view('tanaman.ajax.action_index', compact('data'));
-                })->make(true);
     }
 }

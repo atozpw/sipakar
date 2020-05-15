@@ -1,2 +1,2 @@
-<button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#ubahGejala" data-id="{{ $data->id }}">Lihat</button>
+<button type="button" class="btn btn-sm btn-primary" onclick="showEditModal({{ $data->id }})" data-id="{{ $data->id }}">Ubah</button>
 <button type="button" class="btn btn-sm btn-danger" onclick="hapusGejala({{ $data->id }})">Hapus</button>
